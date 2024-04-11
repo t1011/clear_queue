@@ -9,18 +9,18 @@ my %Q;
 my $queue_id;
 
 for (@data) {
-  if (/^(\w+)(\*|\!)?\s/) {
-     $queue_id = $1;
-  }
-  if($queue_id && /$REGEXP/i) {
-    $Q{$queue_id} = 1;
-    $queue_id = "";
-  }
+    if (/^(\w+)(\*|\!)?\s/) {
+        $queue_id = $1;
+    }
+    if ($queue_id && /$REGEXP/i) {
+        $Q{$queue_id} = 1;
+        $queue_id = "";
+    }
 }
 
-open(my $POSTSUPER,"|postsuper -d -") || die "couldn't open postsuper" ;
+open(my $POSTSUPER, "|postsuper -d -") || die "couldn't open postsuper";
 
 foreach (keys %Q) {
-  print $POSTSUPER "$_\n";
+    print $POSTSUPER "$_\n";
 }
 close($POSTSUPER);
